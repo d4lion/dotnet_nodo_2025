@@ -1,0 +1,16 @@
+meta {
+  name: by_range_of_year
+  type: http
+  seq: 5
+}
+
+get {
+  url: http://localhost:5134/{{album_path}}/findByRangeOfYear?StartYear=2000&EndYear=2015
+  body: json
+  auth: none
+}
+
+params:query {
+  StartYear: 2000
+  EndYear: 2015
+}

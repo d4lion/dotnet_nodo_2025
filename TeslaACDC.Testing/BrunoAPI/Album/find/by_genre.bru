@@ -1,0 +1,15 @@
+meta {
+  name: by_genre
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://localhost:5134/{{album_path}}/findByGenre?genre=metal
+  body: json
+  auth: none
+}
+
+params:query {
+  genre: metal
+}

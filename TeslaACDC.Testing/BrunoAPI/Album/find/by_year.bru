@@ -1,0 +1,15 @@
+meta {
+  name: by_year
+  type: http
+  seq: 6
+}
+
+get {
+  url: http://localhost:5134/{{album_path}}/findByYear?year=1990
+  body: json
+  auth: none
+}
+
+params:query {
+  year: 1990
+}
