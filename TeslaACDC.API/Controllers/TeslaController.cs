@@ -14,7 +14,7 @@ public class TeslaController(IAlbumService albumService) : ControllerBase
 
 
 
-    [HttpGet("almbums")]
+    [HttpGet("albunes")]
     public async Task<IActionResult> GetAlbum()
     {
         var resultData = await _albumService.GetList();
