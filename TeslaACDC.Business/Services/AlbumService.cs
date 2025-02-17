@@ -1,3 +1,5 @@
+using System.Net;
+using System.Text;
 using TeslaACDC.Business.Interfaces;
 using TeslaACDC.Data.Models;
 
@@ -7,15 +9,7 @@ namespace TeslaACDC.Business.Services;
 
 public class AlbumService : IAlbumService
 {
-    public async Task<List<Album>> AddAlbum()
-    {
-        throw new NotImplementedException();
-    }
-
-
-    public async Task<BaseMessage<List<Album>>> GetList()
-    {
-        List<Album> albums = [
+    readonly List<Album> albums = [
             new Album{
                 Name = "Back in black",
                 Year = "1995",
@@ -65,10 +59,99 @@ public class AlbumService : IAlbumService
                 }
             },
         ];
+    public async Task<List<Album>> AddAlbum()
+    {
+        throw new NotImplementedException();
+    }
 
-        return new BaseMessage<List<Album>>()
+    public async Task<BaseMessage<List<Album>>> FindByArtist(string Artist)
+    {
+        var result = albums.FindAll(x => x.Artist.Name.Contains(Artist, StringComparison.CurrentCultureIgnoreCase)).ToList();
+
+        if (result.Count == 0)
         {
-            Result = albums
+            return BuilderResponse(result, statusCode: HttpStatusCode.NotFound, message: $"Not albums founded with artist: {Artist}");
+        }
+        return BuilderResponse(result);
+    }
+
+    public async Task<BaseMessage<List<Album>>> FindByGenre(string Genre)
+    {
+        var result = albums.FindAll(x => x.Genre.ToString().Contains(Genre, StringComparison.CurrentCultureIgnoreCase)).ToList();
+
+        if (result.Count == 0)
+        {
+            return BuilderResponse(result, statusCode: HttpStatusCode.NotFound, message: $"Not albums founded with genre: {Genre}");
+        }
+
+        return BuilderResponse(result);
+
+    }
+
+    public async Task<BaseMessage<List<Album>>> FindById(int Id)
+    {
+        var result = albums.Where(x => x.Id == Id).ToList();
+
+        if (result.Count == 0) {
+            return BuilderResponse(result, statusCode: HttpStatusCode.NotFound, message: $"Not album found with Id: {Id}");
+        }
+
+
+        return BuilderResponse(result);
+    }
+
+    public async Task<BaseMessage<List<Album>>> FindByName(string Name)
+    {
+        var result = albums.FindAll(x => x.Name.ToLower().Contains(Name.ToLower())).ToList();
+
+        if (result.Count == 0)
+        {
+            return BuilderResponse(result, statusCode: HttpStatusCode.NotFound, message: $"Not albums founded with name: {Name}");
+        }
+
+        return BuilderResponse(result);
+
+    }
+
+    public async Task<BaseMessage<List<Album>>> FindByRangeOfYear(int StartYear, int EndYear)
+    {
+        var result = albums.FindAll(x => int.TryParse(x.Year, out int year) && year >= StartYear && year <= EndYear).ToList();
+
+        if (result.Count == 0)
+        {
+            return BuilderResponse(result, statusCode: HttpStatusCode.NotFound, message: $"Not albums founded between {StartYear} and {EndYear}");
+        }
+
+        return BuilderResponse(result);
+
+
+    }
+
+    public async Task<BaseMessage<List<Album>>> FindByYear(int Year)
+    {
+        var result = albums.FindAll(x => x.Year == Year.ToString()).ToList();
+
+        if (result.Count == 0)
+        {
+            return BuilderResponse(result, statusCode: HttpStatusCode.NotFound, message: $"Not albums founded with year: {Year}");
+        }
+    
+        return BuilderResponse(result);
+
+    }
+
+    public async Task<BaseMessage<List<Album>>> GetList()
+    {
+        return BuilderResponse(albums);
+    }
+
+    private BaseMessage<List<Album>> BuilderResponse(List<Album> data, HttpStatusCode statusCode = HttpStatusCode.OK, string message = "Success")
+    {
+        return new BaseMessage<List<Album>>
+        {
+            Result = data,
+            StatusCode = statusCode,
+            Message = message
         };
     }
 }
