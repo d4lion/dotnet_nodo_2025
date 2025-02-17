@@ -1,0 +1,18 @@
+meta {
+  name: divide
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:5134/{{math_path}}/divide
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "num1": 2,
+    "num2": 19
+  }
+}

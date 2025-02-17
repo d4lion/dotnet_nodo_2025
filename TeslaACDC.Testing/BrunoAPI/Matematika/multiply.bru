@@ -1,0 +1,18 @@
+meta {
+  name: multiply
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:5134/{{math_path}}/multiply
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "num1": 2,
+    "num2": 19
+  }
+}
