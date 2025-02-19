@@ -15,48 +15,48 @@ public class AlbumService : IAlbumService
                 Year = "1995",
                 Id = 1,
                 Genre = Genre.Rock,
-                Artist = new Artist{
-                    Name = "ACDC",
-                    IsOnTour = true,
-                    Label = "Sony",
-                    Id = 1001,
-                }
+                // Artist = new Artist{
+                //     Name = "ACDC",
+                //     IsOnTour = true,
+                //     Label = "Sony",
+                //     Id = 1001,
+                // }
             },
             new Album{
                 Name = "Secod Song Name",
                 Year = "1990",
                 Id = 2,
                 Genre = Genre.Metal,
-                Artist = new Artist{
-                    Name = "Metallica",
-                    IsOnTour = false,
-                    Label = "Universal",
-                    Id = 1002,
-                }
+                // Artist = new Artist{
+                //     Name = "Metallica",
+                //     IsOnTour = false,
+                //     Label = "Universal",
+                //     Id = 1002,
+                // }
             },
             new Album{
                 Name = "Third Song Name",
                 Year = "2005",
                 Id = 3,
                 Genre = Genre.Metal,
-                Artist = new Artist{
-                    Name = "Iron Maiden",
-                    IsOnTour = true,
-                    Label = "EMI",
-                    Id = 1003,
-                }
+                // Artist = new Artist{
+                //     Name = "Iron Maiden",
+                //     IsOnTour = true,
+                //     Label = "EMI",
+                //     Id = 1003,
+                // }
             },
             new Album{
                 Name = "Fourth song name",
                 Year = "2010",
                 Id = 4,
                 Genre = Genre.Metal,
-                Artist = new Artist{
-                    Name = "Megadeth",
-                    IsOnTour = false,
-                    Label = "Warner",
-                    Id = 1004,
-                }
+                // Artist = new Artist{
+                //     Name = "Megadeth",
+                //     IsOnTour = false,
+                //     Label = "Warner",
+                //     Id = 1004,
+                // }
             },
         ];
     public async Task<List<Album>> AddAlbum()
@@ -66,13 +66,15 @@ public class AlbumService : IAlbumService
 
     public async Task<BaseMessage<List<Album>>> FindByArtist(string Artist)
     {
-        var result = albums.FindAll(x => x.Artist.Name.Contains(Artist, StringComparison.CurrentCultureIgnoreCase)).ToList();
+        // var result = albums.FindAll(x => x.Artist.Name.Contains(Artist, StringComparison.CurrentCultureIgnoreCase)).ToList();
 
-        if (result.Count == 0)
-        {
-            return BuilderResponse(result, statusCode: HttpStatusCode.NotFound, message: $"Not albums founded with artist: {Artist}");
-        }
-        return BuilderResponse(result);
+        // if (result.Count == 0)
+        // {
+        //     return BuilderResponse(result, statusCode: HttpStatusCode.NotFound, message: $"Not albums founded with artist: {Artist}");
+        // }
+        // return BuilderResponse(result);
+
+        return BuilderResponse(new List<Album>(), statusCode: HttpStatusCode.NotImplemented, message: $"Service disabled temporarily");
     }
 
     public async Task<BaseMessage<List<Album>>> FindByGenre(string Genre)
