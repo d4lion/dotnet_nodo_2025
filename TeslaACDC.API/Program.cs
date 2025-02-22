@@ -2,6 +2,9 @@ using Microsoft.EntityFrameworkCore;
 using TeslaACDC.Business.Interfaces;
 using TeslaACDC.Business.Services;
 using TeslaACDC.Data;
+using TeslaACDC.Data.Interfaces;
+using TeslaACDC.Data.Models;
+using TeslaACDC.Data.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +23,10 @@ builder.Services.AddDbContext<DatabaseContext>(
 // Inyeccion de dependencias
 builder.Services.AddScoped<IAlbumService, AlbumService>();
 builder.Services.AddScoped<IMatematikaService, MatematikaService>();
+builder.Services.AddScoped<IArtistService, ArtistService>();
+builder.Services.AddScoped<IAlbumRepository<int, Album>, AlbumRepository<int, Album>>();
+builder.Services.AddScoped<IArtistRepository<int, Artist>, ArtistRepository<int, Artist>>();
+
 
 var app = builder.Build();
 
