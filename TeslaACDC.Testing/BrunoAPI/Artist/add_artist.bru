@@ -1,0 +1,19 @@
+meta {
+  name: add_artist
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:5134/{{artist_path}}/addArtist
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "Name": "Romeo Santos",
+    "Label": "Sony Music",
+    "IsOnTour": true
+  }
+}

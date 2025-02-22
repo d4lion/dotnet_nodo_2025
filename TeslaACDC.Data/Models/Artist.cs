@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace TeslaACDC.Data.Models;
 
 public class Artist : BaseEntity<int>
