@@ -1,6 +1,7 @@
 using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using TeslaACDC.Business.Interfaces;
+using TeslaACDC.Data.Models;
 
 namespace TeslaACDC.API.Controllers
 {
@@ -61,6 +62,13 @@ namespace TeslaACDC.API.Controllers
         {
             var result = await _albumService.FindByYear(Year);
             return result.StatusCode == HttpStatusCode.OK ? Ok(result) : StatusCode((int)result.StatusCode, result);
+        }
+
+        [HttpPost("addAlbum")]
+        public async Task<IActionResult> AddAlbum(Album album)
+        {
+            var result = await _albumService.AddAlbum(album);
+            return result.StatusCode == HttpStatusCode.Created ? Ok(result) : StatusCode((int)result.StatusCode, result);
         }
 
     }
